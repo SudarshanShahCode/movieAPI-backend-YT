@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/movie")
+@CrossOrigin(origins = "*")
 public class MovieController {
 
     private final MovieService movieService;
@@ -50,9 +51,9 @@ public class MovieController {
 
     @PutMapping("/update/{movieId}")
     public ResponseEntity<MovieDto> updateMovieHandler(@PathVariable Integer movieId,
-                                                       @RequestPart MultipartFile file,
+                                                       @RequestPart(required = false) MultipartFile file,
                                                        @RequestPart String movieDtoObj) throws IOException {
-        if (file.isEmpty()) file = null;
+        if (file == null || file.isEmpty()) file = null;
         MovieDto movieDto = convertToMovieDto(movieDtoObj);
         return ResponseEntity.ok(movieService.updateMovie(movieId, movieDto, file));
     }

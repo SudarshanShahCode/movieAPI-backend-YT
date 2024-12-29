@@ -20,6 +20,7 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/forgotPassword")
+@CrossOrigin(origins = "*")
 public class ForgotPasswordController {
 
     private final UserRepository userRepository;
@@ -52,7 +53,7 @@ public class ForgotPasswordController {
 
         ForgotPassword fp = ForgotPassword.builder()
                 .otp(otp)
-                .expirationTime(new Date(System.currentTimeMillis() + 20 * 1000))
+                .expirationTime(new Date(System.currentTimeMillis() + 20 * 100000))
                 .user(user)
                 .build();
 
